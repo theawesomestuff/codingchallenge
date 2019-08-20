@@ -41,8 +41,14 @@ class TriangularGlassStack:
     def get_liquid(self, i, j):
         """
         Get how much liquid is in the j'th glass of the i'th row
+
+        Assume that if the given i and/or j indexes are invalid,
+        then return None
         :param i: row index
         :param j: glasses index in the particular row
         :return:  amount of liquid in ml
         """
-        return self.rows[i][j]
+        try:
+            return self.rows[i][j]
+        except IndexError:
+            return None

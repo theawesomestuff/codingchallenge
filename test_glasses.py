@@ -50,6 +50,42 @@ class TestTriangularGlassStack(unittest.TestCase):
         with self.assertRaises(ValueError):
             stack.add_liquid(-1)
 
+    def test_get_liquid(self):
+        """
+        Test basic version of get_liquid
+        """
+        # Test scenario where We haven't even added any liquid
+        stack = TriangularGlassStack()
+        self.assertEqual(stack.get_liquid(0, 0), None)
+        self.assertEqual(stack.get_liquid(10, 10), None)
+
+        # Add some liquid
+        stack = TriangularGlassStack()
+        stack.add_liquid(250)
+        self.assertEqual(stack.get_liquid(0, 0), 250)
+        self.assertEqual(stack.get_liquid(1, 1), None)
+
+    def test_get_liquid_with_overflow(self):
+        """
+        Test get_liquid when there is overflow
+        """
+        # Add some liquid
+        stack = TriangularGlassStack()
+        stack.add_liquid(251)
+        self.assertEqual(stack.get_liquid(0, 0), 250)
+        self.assertEqual(stack.get_liquid(1, 0), 1/2)
+        self.assertEqual(stack.get_liquid(1, 1), 1/2)
+        self.assertEqual(stack.get_liquid(1, 2), None)
+        self.assertEqual(stack.get_liquid(2, 2), None)
+
+        # Add some liquid
+        stack = TriangularGlassStack()
+        stack.add_liquid(250 * 9)
+        self.assertEqual(stack.get_liquid(0, 0), 250)
+        self.assertEqual(stack.get_liquid(1, 1), 250)
+        self.assertEqual(stack.get_liquid(2, 2), 250)
+        self.assertEqual(stack.get_liquid(3, 0), 750/4)
+
 
 if __name__ == '__main__':
     unittest.main()
