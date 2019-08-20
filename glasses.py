@@ -5,7 +5,7 @@ class TriangularGlassStack:
 
     def __init__(self):
         self.glass_capacity = 250  # glass capacity in ml
-        self.row = []
+        self.rows = []  # Contains glass capacity of each glasses in each row
 
     def add_liquid(self, amount):
         """
@@ -13,7 +13,27 @@ class TriangularGlassStack:
         :param amount: amount of liquid in ml
         :return:
         """
-        pass
+        remaining_liquid = amount
+        curr_row_index = 0
+
+        while remaining_liquid > 0:
+            curr_row_glasses_count = curr_row_index + 1
+            curr_row_capacity = curr_row_glasses_count * self.glass_capacity
+
+            if remaining_liquid <= curr_row_capacity:
+                # Handle case where there is NO overflow
+                curr_row = [remaining_liquid/curr_row_glasses_count
+                            for i in range(curr_row_glasses_count)]
+                self.rows.append(curr_row)
+                remaining_liquid = 0
+            else:
+                # Handle case where there is an overflow
+                curr_row = [curr_row_capacity / curr_row_glasses_count
+                            for i in range(curr_row_glasses_count)]
+                self.rows.append(curr_row)
+                remaining_liquid -= curr_row_capacity
+
+            curr_row_index += 1
 
     def get_liquid(self, i, j):
         """
@@ -22,4 +42,4 @@ class TriangularGlassStack:
         :param j: glasses index in the particular row
         :return:  amount of liquid in ml
         """
-        return self.row[i][j]
+        return self.rows[i][j]
