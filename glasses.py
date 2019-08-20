@@ -16,6 +16,9 @@ class TriangularGlassStack:
         remaining_liquid = amount
         curr_row_index = 0
 
+        if amount < 0:
+            raise ValueError(f"Amount added cannot be negative :{amount}")
+
         while remaining_liquid > 0:
             curr_row_glasses_count = curr_row_index + 1
             curr_row_capacity = curr_row_glasses_count * self.glass_capacity

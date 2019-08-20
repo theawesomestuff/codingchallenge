@@ -41,6 +41,15 @@ class TestTriangularGlassStack(unittest.TestCase):
         self.assertEqual(stack.rows, [[250], [250, 250], [250, 250, 250],
                                       [750/4, 750/4, 750/4, 750/4]])
 
+    def test_add_liquid_negative(self):
+        """
+        Test add_liquid when you try to add a negaive amount of liquid
+        """
+        stack = TriangularGlassStack()
+
+        with self.assertRaises(ValueError):
+            stack.add_liquid(-1)
+
 
 if __name__ == '__main__':
     unittest.main()
