@@ -36,6 +36,11 @@ class TestTriangularGlassStack(unittest.TestCase):
         stack.add_liquid(250 * 3 + 1)
         self.assertEqual(stack.rows, [[250], [250, 250], [1/3, 1/3, 1/3]])
 
+        stack = TriangularGlassStack()
+        stack.add_liquid(250 * 9)
+        self.assertEqual(stack.rows, [[250], [250, 250], [250, 250, 250],
+                                      [750/4, 750/4, 750/4, 750/4]])
+
 
 if __name__ == '__main__':
     unittest.main()
